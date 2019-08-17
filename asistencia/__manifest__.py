@@ -6,6 +6,6 @@
     'data': [
     ],
     'qweb': [
-        # 'static/xml/asistencias.xml',
+        'static/src/xml/attendance.xml',
     ],
 }
