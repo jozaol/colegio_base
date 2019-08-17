@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template id="template_attendance" inherit_id="hr_attendance">
+    <t t-extend="HrAttendanceKioskMode">
+        <t t-jquery="div.row.o_hr_attendance_kiosk_welcome_row" t-operation="inside">
+            <div class="col-sm-5">
+                <button class="o_hr_attendance_button_employees btn btn-primary mb16">
+                    <div class="mb16 mt16">Seleccionar Alumno</div>
+                </button>
+            </div>
+        </t>
+    </t>
+</template>
