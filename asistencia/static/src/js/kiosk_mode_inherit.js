@@ -1,12 +1,7 @@
 odoo.define('asistencia.kiosk_mode_inherit', function (require) {
     "use strict";
     
-    var KioskMode = require('hr_attendance.kiosk_mode');
-    var ajax = require('web.ajax');
-    var core = require('web.core');
-    var Session = require('web.session');
-    
-    var QWeb = core.qweb;
+    var KioskMode = require('hr_attendance.kiosk_mode');    
 
     KioskMode.include({
         events: {
