@@ -8,7 +8,6 @@ class Anyaca(models.Model):
     anyaca_id=fields.Char(string='Código del Año Academico',required=True)
     name=fields.Char(string='Año Academico',required=True)
     stats_abierto=fields.Boolean(string='Abierto', default=False)
-    slogan=fields.Char(string="Slogan",required=True)
-    anyo_fiscal=fields.Char(string="Año Fiscal",required=True)
-
-
+    slogan=fields.Text(string='Slogan')
+    anyo_fiscal=fields.Text(string="Año Fiscal")
+    batch_ids=fields.Many2many('op.batch',string="Batch")

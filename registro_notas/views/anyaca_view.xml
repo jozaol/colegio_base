@@ -19,8 +19,10 @@
     </group>
 
     <group>
-      <field name="slogan" style="width: 80%%" />
-      <field name="anyo_fiscal" style="width: 80%%"/>
+      <field name="slogan" style="width: 40%%" />
+      <field name="anyo_fiscal" style="width: 40%%"/>
+      <field name="batch_ids"/>
+
     </group>
 
     </sheet>
