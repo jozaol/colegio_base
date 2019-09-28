@@ -1,0 +1,6 @@
+<?xml version="1.0" ?>
+<odoo>
+ <record id="openeducat_core.group_op_back_office_admin" model="res.groups">
+  <field name="name">Back Office Admin</field>
+ </record>
+</odoo>
