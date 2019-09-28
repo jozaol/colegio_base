@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 from odoo import fields, models, api
 from datetime import date, datetime, timedelta
-
-import logging
-_logger = logging.getLogger(__name__)
+from odoo.exceptions import UserError
 
 class HrAttendanceReport(models.TransientModel):
     _name = 'hr.attendance.report'
@@ -15,36 +13,101 @@ class HrAttendanceReport(models.TransientModel):
 
     @api.multi
     def generate_report(self):
-        inicio = datetime.strptime((str(self.date_start)+' 00:00:00'), "%Y-%m-%d %H:%M:%S")
-        final = datetime.strptime((str(self.date_end)+' 23:59:59'), "%Y-%m-%d %H:%M:%S")
-        asistencias = self.env['hr.attendance'].search([
-            ('employee_id','=',self.employee_id.id),
-            ('check_in','>=',inicio),('check_out','<=',final)])
+        return self.env.ref('asistencia.action_report_hr_attendance').report_action(self)
 
+    @api.model
+    def get_data(self, employee, date_start, date_end):
+        inicio = datetime.strptime((str(date_start)+' 00:00:00'), "%Y-%m-%d %H:%M:%S")
+        final = datetime.strptime((str(date_end)+' 23:59:59'), "%Y-%m-%d %H:%M:%S")
+        asistencias = self.env['hr.attendance'].search([
+            ('employee_id','=',employee.id),
+            ('check_in','>=',inicio),('check_out','<=',final)])
+        
+        delta = self.date_end - self.date_start
+        dates = []
+        for i in range(delta.days + 1):
+            dates.append(self.date_start + timedelta(days=i))
+
+        print(dates)
         data = []
-        for a in asistencias:
+        for d in dates:
+            a = asistencias.filtered(lambda x: x.check_in.date()==d)
             row = {}
+
+            #OBTENIENDO LA HORA DE ENTRADA Y SALIDA FIJAS DEL EMPLEADO EN FLOAT
+            horarios = self.employee_id.resource_calendar_id.mapped('attendance_ids')
+            entrada = horarios.filtered(lambda x: str(x.dayofweek)==str(int(d.strftime("%w"))-1))
+            salida = horarios.filtered(lambda x: str(x.dayofweek)==str(int(d.strftime("%w"))-1))
+            if not entrada and not salida and not a:
+                row['fecha'] = datetime.strftime(d, "%Y-%m-%d")
+                row['entrada'] = ""
+                row['salida'] = ""
+                row['tardanza'] = 0
+                row['anticipada'] = 0
+                row['permanencia'] = 0
+                row['estado'] = "N"
+                row['horas'] = 0
+                row['minutos'] = 0
+                data.append(row)
+                continue
+            entrada_ok = entrada.hour_from
+            salida_ok = salida.hour_to
+
+            if not a:
+                row['fecha'] = datetime.strftime(d, "%Y-%m-%d")
+                row['entrada'] = ""
+                row['salida'] = ""
+                row['tardanza'] = 0
+                row['anticipada'] = 0
+                row['permanencia'] = 0
+                row['estado'] = "F"
+                row['horas'] = 0
+                row['minutos'] = 0
+                data.append(row)
+                continue
+            a = a[0]
             fecha_entrada = a.check_in + timedelta(hours=-5)
             fecha_salida = a.check_out + timedelta(hours=-5)
             row['fecha'] = datetime.strftime(fecha_entrada, "%Y-%m-%d")
             row['entrada'] = datetime.strftime(fecha_entrada, "%H:%M")
             row['salida'] = datetime.strftime(fecha_salida, "%H:%M")
-            horarios = a.employee_id.resource_calendar_id.mapped('attendance_ids')
-            entrada_ok = horarios.filtered(lambda x: str(x.dayofweek)==str(int(fecha_entrada.strftime("%w"))-1)).hour_from
-            salida_ok = horarios.filtered(lambda x: str(x.dayofweek)==str(int(fecha_salida.strftime("%w"))-1)).hour_to
-            entrada_ok = '{0:02.0f}:{1:02.0f}'.format(*divmod(entrada_ok * 60, 60))
-            salida_ok = '{0:02.0f}:{1:02.0f}'.format(*divmod(salida_ok * 60, 60))
-            entrada_ok = fecha_entrada.strftime("%Y-%m-%d")+' '+entrada_ok+':00'
-            salida_ok = fecha_salida.strftime("%Y-%m-%d")+' '+salida_ok+':00'
-            diff_entrada = fecha_entrada - datetime.strptime(entrada_ok,"%Y-%m-%d %H:%M:%S")
-            diff_salida = fecha_salida - datetime.strptime(salida_ok,"%Y-%m-%d %H:%M:%S")
-            diff_permanencia = fecha_entrada - fecha_salida
-            row['tardanza'] = int(diff_entrada.days * 1440 + diff_entrada.seconds/60)
-            salida_anti = int(diff_salida.days * 1440 + diff_salida.seconds/60)
-            row['anticipada'] = (salida_anti*-1) if salida_anti<0 else 0
-            row['permanencia'] = int(diff_permanencia.days * 1440 + diff_permanencia.seconds/60)
+            estado = "A"
+
+            #OBTENIENDO LA ENTRADA Y SALIDA DEL EMPLEADO CONVERTIDO A FLOAT
+            entrada_float = datetime.strptime(row['entrada'], "%H:%M").time()
+            entrada_float = entrada_float.hour + entrada_float.minute / 60.0
+            salida_float = datetime.strptime(row['salida'], "%H:%M").time()
+            salida_float = salida_float.hour + salida_float.minute / 60.0
+
+            #OBTENIENDO LA TARDANZA EN MINUTOS
+            tardanza = 0
+            if entrada_float > entrada_ok:
+                estado = "T"
+                tardanza = entrada_float - entrada_ok
+                tardanza = round(tardanza * 60)
+
+            #OBTENIENDO LA ANTICIPADA EN MINUTOS
+            anticipada = 0
+            if salida_float < salida_ok:
+                anticipada = salida_ok - salida_float
+                anticipada = round(anticipada * 60)
             
-            _logger.debug(diff_entrada)
-            _logger.debug(diff_salida)
-            _logger.debug(diff_salida.days * 1440)
-            _logger.debug(diff_salida.seconds/60)
+            # OBTENIENDO LA PERMANENCIA EN MINUTOS
+            permanencia = 0
+            if salida_float > salida_ok:
+                permanencia = salida_float - salida_ok
+                permanencia = round(permanencia * 60)
+
+            row['tardanza'] = tardanza
+            row['anticipada'] = anticipada
+            row['permanencia'] = permanencia
+            row['estado'] = estado
+
+            # OBTENIENDO LAS HORAS Y MINUTOS QUE PERMANECIO
+            diferencia_fecha = fecha_entrada - fecha_salida
+            result = str(abs(diferencia_fecha)).split(":")
+            row['horas'] = result[0]
+            row['minutos'] = result[1]
+
+            data.append(row)
+        return data
