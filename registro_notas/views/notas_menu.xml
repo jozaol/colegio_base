@@ -29,13 +29,13 @@
               name="Unidad"
               action="action_notas_unidad"
               parent="notas_menu" />
-    <!--asignaturas-->
+    <!--Registro de notas-->
     <act_window id="action_notas_asignaturas"
-                name="Asignaturas"
+                name="Registro de notas"
                 res_model="colegio.asignaturas"
                 view_mode="tree,form" />
     <menuitem id="menu_notas_asignaturas"
-              name="Asignaturas"
+              name="Registro de notas"
               action="action_notas_asignaturas"
               parent="notas_menu" />
     <!--criterios libreta-->

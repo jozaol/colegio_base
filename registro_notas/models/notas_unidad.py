@@ -5,6 +5,7 @@ class Unidad(models.Model):
     _name = 'colegio.unidad'
     _description = 'Unidad'
 
+
     name=fields.Selection([
     ('Primera Unidad','Primera Unidad'),
     ('Segunda Unidad','Segunda Unidad'),
