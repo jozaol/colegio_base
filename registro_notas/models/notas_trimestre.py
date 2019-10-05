@@ -5,8 +5,8 @@ class Trimestre(models.Model):
     _description = 'Trimestre'
 
 
-    trimestre_id= fields.Char(string='Código del Trimestre', required=True)    
+    trimestre_id= fields.Char(string='Código del Trimestre')    
     name=fields.Selection([('Primer Trimestre','Primer Trimestre'),
     ('Segundo Trimestre','Segundo Trimestre'),
-    ('Tercer Trimestre','Tercer Trimeste')],string='Trimestre', required=True)
-    anyaca_id=fields.Many2one('colegio.anyaca',string='Año Académico',required=True)
+    ('Tercer Trimestre','Tercer Trimeste')],string='Trimestre' )
+    anyaca_id=fields.Many2one('colegio.anyaca',string='Año Académico')

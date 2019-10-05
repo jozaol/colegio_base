@@ -2,20 +2,18 @@
 <odoo> 
  
  <record id="view_form_asignaturas" model="ir.ui.view">
-  <field name="name">Notas Form</field>
+  <field name="name">Asignaturas Form</field>
   <field name="model">colegio.asignaturas</field>
   <field name="arch" type="xml">
    <form string="Asignaturas">
     <sheet>
     <group>
       <group>
-        <field name="anyaca_id"/>
-        <field name="trimestre_id" domain="[('anyaca_id','=',anyaca_id)]"/>
-        <field name="unidad_id" domain="[('trimestre_id','=',trimestre_id)]"/>
-        <field name="faculty_id"/>
-        <field name="subject_id"/>
-      </group>
-      <group>
+        <field name="anyaca_id"  style="width: 40%%"/>
+        <field name="trimestre_id" domain="[('anyaca_id','=',anyaca_id)]"  style="width: 40%%"/>
+        <field name="unidad_id" domain="[('trimestre_id','=',trimestre_id)]"  style="width: 40%%"/>
+        <field name="faculty_id"  style="width: 40%%"/>
+        <!-- <field name="subject_ids" widget="many2many_tags"  style="80%%"/>  -->
       </group>
     </group>
    </sheet>
@@ -33,7 +31,7 @@
         <field name="trimestre_id"/>
         <field name="unidad_id"/>
         <field name="faculty_id"/>
-        <field name="subject_id"/>
+        <!-- <field name="subject_ids" widget="many2many_tags"/> -->
       </tree>
     </field>   
   </record>
