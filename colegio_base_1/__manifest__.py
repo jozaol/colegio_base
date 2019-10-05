@@ -4,15 +4,15 @@
 'author': 'Andre Zambrano',
 'data': [
     'security/ir.model.access.csv',
-    'security/course_security.xml',
-    'security/subject_security.xml',
     'views/course_view.xml',
     'views/subject_view.xml',
     'views/batch_view.xml',
+    'views/batch1_view.xml',
 
 ],
 'depends': [
     'openeducat_core',
+    'registro_notas',
 ],
 'application': False,
 }

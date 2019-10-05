@@ -13,7 +13,7 @@
         <field name="trimestre_id" domain="[('anyaca_id','=',anyaca_id)]"  style="width: 40%%"/>
         <field name="unidad_id" domain="[('trimestre_id','=',trimestre_id)]"  style="width: 40%%"/>
         <field name="faculty_id"  style="width: 40%%"/>
-        <field name="subject_ids" widget="many2many_tags"  style="width: 80%%"/>
+<!--         <field name="subject_ids" widget="many2many_tags"  style="80%%"/> -->
       </group>
     </group>
    </sheet>
@@ -31,7 +31,7 @@
         <field name="trimestre_id"/>
         <field name="unidad_id"/>
         <field name="faculty_id"/>
-        <field name="subject_ids" widget="many2many_tags"/>
+<!--         <field name="subject_ids" widget="many2many_tags"/> -->
       </tree>
     </field>   
   </record>

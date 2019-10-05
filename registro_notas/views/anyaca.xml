@@ -20,7 +20,7 @@
     <group>
       <field name="slogan" style="width: 40%%" />
       <field name="anyo_fiscal" style="width: 40%%"/>
-      <field name="batch_ids" widget="many2many_tags"/>
+<!--    <field name="batch_ids" widget="many2many_tags"/> -->
     </group>
 
     </sheet>
@@ -36,7 +36,7 @@
       <tree>
         <field name="name" />
         <field name="anyaca_id"/>
-        <field name="batch_ids" widget="many2many_tags"/>
+<!--         <field name="batch_ids" widget="many2many_tags"/> -->
         <field name="slogan" />
         <field name="anyo_fiscal" />
         <field name="stats_abierto"/>

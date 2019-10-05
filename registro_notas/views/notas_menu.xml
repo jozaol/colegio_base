@@ -47,4 +47,22 @@
               name="Criterios Libreta"
               action="action_notas_criterios_libreta"
               parent="notas_menu" />
+        <!--Nivel-->
+    <act_window id="action_notas_nivel"
+                name="Nivel"
+                res_model="colegio.nivel"
+                view_mode="tree,form" />
+    <menuitem id="menu_notas_nivel"
+              name="Nivel"
+              action="action_notas_nivel"
+              parent="notas_menu" />
+        <!--Meses Pension-->
+    <act_window id="action_notas_meses_pension"
+                name="Meses de Pension"
+                res_model="colegio.meses_pension"
+                view_mode="tree,form" />
+    <menuitem id="menu_notas_meses_pension"
+              name="Pensiones "
+              action="action_notas_meses_pension"
+              parent="notas_menu" />
 </odoo> 
