@@ -5,6 +5,6 @@ class CriteriosLibreta(models.Model):
     _description = 'Criterios de la libreta'
 
 
-    anyaca_id=fields.Many2one('colegio.anyaca',string='Año Académico',required=True)
-    grado_id=fields.Many2one('op.batch',tring='Grado',required=True)
+    anyaca_id=fields.Many2one('colegio.anyaca',string='Año Académico')
+    grado_id=fields.Many2one('op.batch',tring='Grado')
     criterio=fields.Text(string='Criterio')

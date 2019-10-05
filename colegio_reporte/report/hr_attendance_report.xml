@@ -6,8 +6,8 @@
             string="Reporte de Asistencias"
             model="hr.attendance.report" 
             report_type="qweb-pdf"
-            file="asistencia.report_hr_attendance" 
-            name="asistencia.report_hr_attendance"
+            file="colegio_reporte.report_hr_attendance" 
+            name="colegio_reporte.report_hr_attendance"
             print_report_name="'Reporte de Asistencia de - %s' % (object.employee_id.name)"
         />
     </data>
