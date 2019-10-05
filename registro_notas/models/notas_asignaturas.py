@@ -8,13 +8,13 @@ class Unidad(models.Model):
     anyaca_id=fields.Many2one('colegio.anyaca',string='Año Académico')
     unidad_id=fields.Many2one('colegio.unidad',string='Unidad')
     faculty_id=fields.Many2one('op.faculty',string='Profesor')
-    subject_ids=fields.Many2many('op.subject',string='Subject',
-                                  )
+    # subject_ids=fields.Many2many('op.subject',string='Subject',
+    #                               )
 
-    @api.onechange('faculty_id')
-    def _compute_subjects(self):
-        for rec in self:
-            if rec.faculty_id:
-                rec.subject_ids = [[6, 0, rec.faculty.faculty_subject_ids.id]]
+    # @api.onechange('faculty_id')
+    # def _compute_subjects(self):
+    #     for rec in self:
+    #         if rec.faculty_id:
+    #             rec.subject_ids = [[6, 0, rec.faculty.faculty_subject_ids.id]]
 
     
