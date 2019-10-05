@@ -1,7 +1,7 @@
 {'name' :'Registro de notas ',
  'description': 'Registro de notas',
  'author' : 'Andre Zambrano Cueva',
- 'deppends' : ['base',
+ 'depends' : ['base',
                'openeducat_core',
                ],
  'data' : [        

@@ -10,7 +10,7 @@ class Anyaca(models.Model):
     stats_abierto=fields.Boolean(string='Abierto', default=False)
     slogan=fields.Text(string='Slogan')
     anyo_fiscal=fields.Text(string="Año Fiscal")
-#    batch_ids=fields.Many2many('op.batch',string="Batch", required=True)
+    batch_ids=fields.Many2many('op.batch',string="Batch", required=True)
 
 
     
