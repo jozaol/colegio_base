@@ -13,7 +13,7 @@ class HrAttendanceReport(models.TransientModel):
 
     @api.multi
     def generate_report(self):
-        return self.env.ref('asistencia.action_report_hr_attendance').report_action(self)
+        return self.env.ref('colegio_reporte.action_report_hr_attendance').report_action(self)
 
     @api.model
     def get_data(self, employee, date_start, date_end):
@@ -30,6 +30,7 @@ class HrAttendanceReport(models.TransientModel):
 
         print(dates)
         data = []
+        tar_total=ant_total=perm_total=0
         for d in dates:
             a = asistencias.filtered(lambda x: x.check_in.date()==d)
             row = {}
@@ -39,22 +40,23 @@ class HrAttendanceReport(models.TransientModel):
             entrada = horarios.filtered(lambda x: str(x.dayofweek)==str(int(d.strftime("%w"))-1))
             salida = horarios.filtered(lambda x: str(x.dayofweek)==str(int(d.strftime("%w"))-1))
             if not entrada and not salida and not a:
-                row['fecha'] = datetime.strftime(d, "%Y-%m-%d")
-                row['entrada'] = ""
-                row['salida'] = ""
-                row['tardanza'] = 0
-                row['anticipada'] = 0
-                row['permanencia'] = 0
-                row['estado'] = "N"
-                row['horas'] = 0
-                row['minutos'] = 0
-                data.append(row)
+                # row['fecha'] = datetime.strftime(d, "%Y-%m-%d")
+                # row['entrada'] = ""
+                # row['salida'] = ""
+                # row['tardanza'] = 0
+                # row['anticipada'] = 0
+                # row['permanencia'] = 0
+                # row['estado'] = "N"
+                # row['horas'] = 0
+                # row['minutos'] = 0
+                # data.append(row)
                 continue
             entrada_ok = entrada.hour_from
             salida_ok = salida.hour_to
 
             if not a:
-                row['fecha'] = datetime.strftime(d, "%Y-%m-%d")
+                row['fecha'] = datetime.strftime(d, "%d/%m/%Y")
+                row['dia'] = d.strftime("%A")
                 row['entrada'] = ""
                 row['salida'] = ""
                 row['tardanza'] = 0
@@ -68,7 +70,8 @@ class HrAttendanceReport(models.TransientModel):
             a = a[0]
             fecha_entrada = a.check_in + timedelta(hours=-5)
             fecha_salida = a.check_out + timedelta(hours=-5)
-            row['fecha'] = datetime.strftime(fecha_entrada, "%Y-%m-%d")
+            row['fecha'] = datetime.strftime(fecha_entrada, "%d/%m/%Y")
+            row['dia'] = d.strftime("%A")
             row['entrada'] = datetime.strftime(fecha_entrada, "%H:%M")
             row['salida'] = datetime.strftime(fecha_salida, "%H:%M")
             estado = "A"
@@ -99,8 +102,11 @@ class HrAttendanceReport(models.TransientModel):
                 permanencia = round(permanencia * 60)
 
             row['tardanza'] = tardanza
+            tar_total+=tardanza
             row['anticipada'] = anticipada
+            ant_total+=anticipada
             row['permanencia'] = permanencia
+            perm_total+=permanencia
             row['estado'] = estado
 
             # OBTENIENDO LAS HORAS Y MINUTOS QUE PERMANECIO
@@ -110,4 +116,16 @@ class HrAttendanceReport(models.TransientModel):
             row['minutos'] = result[1]
 
             data.append(row)
+        data.append({
+            'fecha': "TOTAL",
+            'dia': "",
+            'entrada': "",
+            'salida': "",
+            'tardanza': tar_total,
+            'anticipada': ant_total,
+            'permanencia': perm_total,
+            'estado': "",
+            'horas': "",
+            'minutos': "",
+        })
         return data
