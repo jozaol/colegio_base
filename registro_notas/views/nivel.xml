@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<odoo> 
+ <record id="view_form_nivel" model="ir.ui.view">
+   <field name="name">Nivel Form</field>
+   <field name="model">colegio.nivel</field>
+   <field name="arch" type="xml">
+   <form string="Nivel">
+    <sheet>
+    <group>
+        <field name="anyaca_id" style="width: 20%%"/>
+        <field name="name" style="width:20%%"/>
+        
+        <field name="codigo_id" style="width: 20%%" placeholder="NIVEL DE ESTUDIO-AÑO"/>
+    </group>
+   </sheet>
+   </form>
+  </field>
+
+ </record>
+    <record id="view_tree_nivel" model="ir.ui.view">
+    <field name="name">Nivel List</field>
+    <field name="model">colegio.nivel</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="anyaca_id"/>
+        <field name="name"/>
+        <field name="codigo_id"/>
+<!--       <field name="course_id" widget="many2many_tags" />  -->
+        
+      </tree>
+    </field>  
+  </record>
+</odoo>
+

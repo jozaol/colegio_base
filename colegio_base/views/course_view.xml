@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="view_form_course_extend" model="ir.ui.view">
+    <field name="name">Subject: add anyaca_id  field</field>
+    <field name="model">op.course</field>
+    <field name="inherit_id" ref="openeducat_core.view_op_course_form"/>
+    <field name="arch" type="xml">
+            <field name="code" position="after">
+            <field name="anyaca_id" />
+            <field name="nivel_id" domain="[('anyaca_id','=',anyaca_id)]"/>
+            </field>
+    </field>
+    </record>
+
+    <record id="view_tree_course_extend" model="ir.ui.view">
+    <field name="name">Subject: add anyaca_id  field</field>
+    <field name="model">op.course</field>
+    <field name="inherit_id" ref="openeducat_core.view_op_course_tree"/>
+    <field name="arch" type="xml">
+            <field name="code" position="after">
+            <field name="anyaca_id"/>
+            <field name="nivel_id" />
+            </field>
+    </field>
+    </record> 
+</odoo>
+

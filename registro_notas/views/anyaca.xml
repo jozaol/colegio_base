@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<odoo> 
+ 
+ <record id="view_form_anyaca" model="ir.ui.view">
+  <field name="name">Notas Form</field>
+  <field name="model">colegio.anyaca</field>
+  <field name="arch" type="xml">
+   <form string="Anyaca">
+    <sheet>
+   
+   <group>
+      <group name="group_left">
+      <field name="name" placeholder="Año Académico 2XXX" style="width: 40%%"/>
+      <field name="stats_abierto" />
+      </group>
+      <group name="group_right">
+      <field name="anyaca_id" placeholder="2XXX" style="width: 15%%"/>
+      </group>
+    </group>
+    <group>
+      <field name="slogan" style="width: 40%%" />
+      <field name="anyo_fiscal" style="width: 40%%"/>
+      <field name="batch_ids" widget="many2many_tags"/> 
+    </group>
+
+    </sheet>
+   </form>
+  </field>
+ </record>
+
+<!--esto permite clear campo en forma horizontal en las listas-->
+   <record id="view_tree_anyaca" model="ir.ui.view">
+    <field name="name">Anyaca List</field>
+    <field name="model">colegio.anyaca</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="name" />
+        <field name="anyaca_id"/>
+        <field name="batch_ids" widget="many2many_tags"/> 
+        <field name="slogan" />
+        <field name="anyo_fiscal" />
+        <field name="stats_abierto"/>
+      </tree>
+    </field>   
+  </record>
+</odoo>

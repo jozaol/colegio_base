@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="hr_attendance_report_form" model="ir.ui.view">
+        <field name="name">hr.attendance.report.form</field>
+        <field name="model">hr.attendance.report</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="employee_id"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                </group>
+                <footer>
+                    <button name="generate_report" type="object" string="Generar" class="oe_highlight"/>
+                    <button string="Cancelar" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_trimestre_user,Trimestre User Access,model_colegio_trimestre,base.group_user,1,1,1,1
+access_unidad_user,Unidad User Access,model_colegio_unidad,base.group_user,1,1,1,1
+access_anyaca_user,Anyaca User Access,model_colegio_anyaca,base.group_user,1,1,1,1
+access_asignaturas_user,Asignaturas User Access,model_colegio_asignaturas,base.group_user,1,1,1,1
+access_criterios_libreta_user,Criterios_libreta User Access,model_colegio_criterios_libreta,base.group_user,1,1,1,1
+access_nivel_user,Nivel User Access,model_colegio_nivel,base.group_user,1,1,1,1
+access_meses_pension_user,Meses Pension User Access,model_colegio_meses_pension,base.group_user,1,1,1,1
+
+
