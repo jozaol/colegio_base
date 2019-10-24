@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="view_form_notas_alumno" model="ir.ui.view">
+    <field name="name">notas alumno form</field>
+    <field name="model">colegio.notas_alumno</field>
+    <field name="arch" type="xml">
+    <form string="Notas Alumnos">
+        <group>
+            <field name="student_id"/>
+            <field name="alumno_nota"/>
+            <field name="obs"/>
+        </group>
+    </form>
+    </field>
+    </record>
+</odoo>

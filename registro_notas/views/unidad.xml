@@ -14,8 +14,8 @@
           </group>
           <group name="right">
           <group name="right">
-          <field name="f_inicio" />
-          <field name="f_fin" />
+          <field name="f_inicio" style="width: 142%%" />
+          <field name="f_fin" style="width: 142%%" />
           </group>
           <group name="left">
           <field name="unidad_id" style="width: 145%%"/> 

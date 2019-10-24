@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<odoo> 
+ <record id="view_form_meses_pension" model="ir.ui.view">
+   <field name="name">Meses Pension Form</field>
+   <field name="model">colegio.meses_pension</field>
+   <field name="arch" type="xml">
+   <form string="Meses Pension">
+    <sheet>
+    <group>
+        <field name="anyaca_id"  style="width: 40%%"/>
+        <field name="nivel_id"  style="width: 40%%" domain="[('anyaca_id','=',anyaca_id)]" />
+        <field name="mes_id"  style="width: 40%%" placeholder=" EJM: 1 = ENERO ,2 = FEBRERO , ..."/>
+    </group>
+   </sheet>
+   </form>
+  </field>
+
+ </record>
+    <record id="view_tree_meses_pension" model="ir.ui.view">
+    <field name="name">Meses Pension List</field>
+    <field name="model">colegio.meses_pension</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="anyaca_id"  />
+        <field name="nivel_id"  />
+        <field name="mes_id"  />      
+      </tree>
+    </field>  
+  </record>
+</odoo>
+

@@ -2,7 +2,7 @@
 <odoo>
     <template id="assets_backend" name="hr_attendance assets" inherit_id="web.assets_backend">
         <xpath expr="." position="inside">
-            <script type="text/javascript" src="/asistencia/static/src/js/kiosk_mode_inherit.js"></script>
+            <script type="text/javascript" src="/colegio_reporte/static/src/js/kiosk_mode_inherit.js"></script>
         </xpath>
     </template>
 </odoo>
