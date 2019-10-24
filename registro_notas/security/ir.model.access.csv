@@ -8,4 +8,3 @@ access_nivel_user,Nivel User Access,model_colegio_nivel,base.group_user,1,1,1,1
 access_meses_pension_user,Meses Pension User Access,model_colegio_meses_pension,base.group_user,1,1,1,1
 access_notas_alumno_user,Notas Alumno User Access,model_colegio_notas_alumno,base.group_user,1,1,1,1
 
-

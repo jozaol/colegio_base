@@ -15,7 +15,6 @@
      'views/nivel.xml',
      'views/meses_pension.xml',
      'views/alumnos.xml',
-     
  ],
  'application' :True,
  'installable': True,
